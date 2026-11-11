@@ -1,1 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mundo Canino da Bella 🐶</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #FF7B9C;
+      --secondary: #FFD166;
+      --accent: #4ECDC4;
+      --dark: #2F3E46;
+      --light: #FFF9F5;
+      --card-bg: #FFFFFF;
+    }
 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      padding-bottom: 50px;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), #FF9EAA);
+      color: white;
+      text-align: center;
+      padding: 50px 20px 40px;
+      border-bottom-left-radius: 40px;
+      border-bottom-right-radius: 40px;
+      box-shadow: 0 10px 20px rgba(255, 123, 156, 0.2);
+    }
+
+    header h1 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+    }
+
+    header p {
+      font-size: 1.3rem;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2rem;
+      color: var(--primary);
+      text-align: center;
+      margin: 40px 0 20px;
+    }
+
+    .about-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 30px;
+      margin-top: -30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .about-avatar {
+      font-size: 4rem;
+      background: var(--secondary);
+      width: 100px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .about-text h2 {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .facts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .fact-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+      border: 2px solid #F0F0F0;
+      transition: transform 0.2s;
+    }
+
+    .fact-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .fact-card .icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .fact-card h3 {
+      font-family: 'Fredoka', sans-serif;
+      margin-bottom: 8px;
+    }
+
+    /* JOGO */
+    .game-section {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .game-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 15px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.2rem;
+    }
+
+    .stat-box {
+      background: #F8F9FA;
+      padding: 8px 20px;
+      border-radius: 12px;
+      border: 2px solid #E9ECEF;
+    }
+
+    #game-canvas {
+      background: #E8F8F5;
+      border-radius: 16px;
+      border: 4px solid var(--accent);
+      width: 100%;
+      max-width: 600px;
+      height: 350px;
+      display: block;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .game-controls {
+      margin-top: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-family: 'Fredoka', sans-serif;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 123, 156, 0.4);
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: #FF5D83;
+      transform: scale(1.05);
+    }
+
+    .btn-mobile-ctrl {
+      background: var(--accent);
+      padding: 10px 20px;
+      font-size: 1.5rem;
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      header h1 { font-size: 2.2rem; }
+      .about-card { flex-direction: column; text-align: center; }
+      .btn-mobile-ctrl { display: inline-block; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Olá! Eu sou a Bella 🐶</h1>
+    <p>Bem-vindo ao meu cantinho sobre o universo dos cachorros!</p>
+  </header>
+
+  <div class="container">
+    <section class="about-card">
+      <div class="about-avatar">👧💖</div>
+      <div class="about-text">
+        <h2>Amo de paixão os pets!</h2>
+        <p>Sou fascinada por cachorrinhos de todas as raças e tamanhos! Criei este espaço para compartilhar curiosidades caninas e um joguinho divertido de pegar petiscos!</p>
+      </div>
+    </section>
+
+    <h2 class="section-title">Curiosidades Caninas 💡</h2>
+    <div class="facts-grid">
+      <div class="fact-card">
+        <div class="icon">👂</div>
+        <h3>Super Audição</h3>
+        <p>Os cães conseguem ouvir sons quatro vezes mais distantes do que os seres humanos!</p>
+      </div>
+      <div class="fact-card">
+        <div class="icon">👃</div>
+        <h3>Focinho Único</h3>
+        <p>A impressão do focinho de cada cachorro é única, funcionando exatamente como a digital dos humanos!</p>
+      </div>
+      <div class="fact-card">
+        <div class="icon">💤</div>
+        <h3>Sonhadores</h3>
+        <p>Cachorros também têm sonhos! Quando mexem as patinhas enquanto dormem, provavelmente estão correndo em um sonho.</p>
+      </div>
+    </div>
+
+    <section class="game-section">
+      <h2 class="section-title" style="margin-top: 0;">Jogo: A Hora do Lanchinho 🍖</h2>
+      <p style="margin-bottom: 15px;">Ajude o cachorrinho a pegar os petiscos antes que o tempo acabe!</p>
+
+      <div class="game-stats">
+        <div class="stat-box">Pontos: <span id="score-val">0</span></div>
+        <div class="stat-box">Tempo: <span id="time-val">30</span>s</div>
+        <div class="stat-box">Recorde: <span id="high-score-val">0</span></div>
+      </div>
+
+      <canvas id="game-canvas"></canvas>
+
+      <div class="game-controls">
+        <button class="btn btn-mobile-ctrl" id="btn-left">⬅️</button>
+        <button class="btn" id="start-btn">Começar Jogo</button>
+        <button class="btn btn-mobile-ctrl" id="btn-right">➡️</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+    const scoreVal = document.getElementById('score-val');
+    const timeVal = document.getElementById('time-val');
+    const highScoreVal = document.getElementById('high-score-val');
+    const startBtn = document.getElementById('start-btn');
+    const btnLeft = document.getElementById('btn-left');
+    const btnRight = document.getElementById('btn-right');
+
+    // Ajusta resolução do Canvas
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Variáveis do Jogo
+    let score = 0;
+    let timeLeft = 30;
+    let gameInterval = null;
+    let timerInterval = null;
+    let isPlaying = false;
+    let highScore = localStorage.getItem('bella_dog_highscore') || 0;
+    highScoreVal.textContent = highScore;
+
+    const dog = {
+      x: canvas.width / 2 - 25,
+      y: 0,
+      width: 50,
+      height: 50,
+      speed: 8,
+      dx: 0
+    };
+
+    let items = [];
+    const itemTypes = [
+      { emoji: '🦴', points: 10, speed: 3 },
+      { emoji: '🥩', points: 20, speed: 4.5 },
+      { emoji: '🎾', points: 15, speed: 4 },
+      { emoji: '⏰', points: -10, speed: 5 }
+    ];
+
+    function drawDog() {
+      ctx.font = '40px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('🐶', dog.x + dog.width / 2, dog.y + 40);
+    }
+
+    function spawnItem() {
+      if (!isPlaying) return;
+      const randomType = itemTypes[Math.floor(Math.random() * itemTypes.length)];
+      const x = Math.random() * (canvas.width - 40) + 20;
+      items.push({
+        x: x,
+        y: -30,
+        ...randomType
+      });
+    }
+
+    function updateItems() {
+      for (let i = items.length - 1; i >= 0; i--) {
+        const item = items[i];
+        item.y += item.speed;
+
+        ctx.font = '30px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(item.emoji, item.x, item.y);
+
+        // Colisão com o cão
+        if (
+          item.y >= dog.y - 10 &&
+          item.y <= dog.y + dog.height &&
+          item.x >= dog.x &&
+          item.x <= dog.x + dog.width
+        ) {
+          score += item.points;
+          if (score < 0) score = 0;
+          scoreVal.textContent = score;
+          items.splice(i, 1);
+          continue;
+        }
+
+        // Removido ao sair da tela
+        if (item.y > canvas.height + 30) {
+          items.splice(i, 1);
+        }
+      }
+    }
+
+    function updateDogPosition() {
+      dog.x += dog.dx;
+      if (dog.x < 0) dog.x = 0;
+      if (dog.x + dog.width > canvas.width) dog.x = canvas.width - dog.width;
+    }
+
+    function gameLoop() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      dog.y = canvas.height - 50;
+
+      updateDogPosition();
+      drawDog();
+      updateItems();
+
+      if (isPlaying) {
+        requestAnimationFrame(gameLoop);
+      }
+    }
+
+    function startGame() {
+      score = 0;
+      timeLeft = 30;
+      items = [];
+      isPlaying = true;
+      scoreVal.textContent = score;
+      timeVal.textContent = timeLeft;
+      startBtn.textContent = 'Reiniciar Jogo';
+
+      clearInterval(timerInterval);
+      clearInterval(gameInterval);
+
+      gameInterval = setInterval(spawnItem, 800);
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        timeVal.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+          endGame();
+        }
+      }, 1000);
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    function endGame() {
+      isPlaying = false;
+      clearInterval(timerInterval);
+      clearInterval(gameInterval);
+
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('bella_dog_highscore', highScore);
+        highScoreVal.textContent = highScore;
+        alert(`🎉 Novo Recorde, Bella! Você fez ${score} pontos!`);
+      } else {
+        alert(`Fim de jogo! Você fez ${score} pontos! 🐶`);
+      }
+      startBtn.textContent = 'Jogar Novamente';
+    }
+
+    // Controles por Teclado
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') dog.dx = -dog.speed;
+      if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') dog.dx = dog.speed;
+    });
+
+    window.addEventListener('keyup', (e) => {
+      if (['ArrowLeft', 'ArrowRight', 'a', 'A', 'd', 'D'].includes(e.key)) dog.dx = 0;
+    });
+
+    // Controles Touches / Mouse no Canvas
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const mouseX = e.clientX - rect.left;
+      dog.x = mouseX - dog.width / 2;
+    });
+
+    canvas.addEventListener('touchmove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const touchX = e.touches[0].clientX - rect.left;
+      dog.x = touchX - dog.width / 2;
+      e.preventDefault();
+    }, { passive: false });
+
+    // Botões Virtuais
+    btnLeft.addEventListener('mousedown', () => dog.dx = -dog.speed);
+    btnLeft.addEventListener('mouseup', () => dog.dx = 0);
+    btnLeft.addEventListener('touchstart', (e) => { dog.dx = -dog.speed; e.preventDefault(); });
+    btnLeft.addEventListener('touchend', () => dog.dx = 0);
+
+    btnRight.addEventListener('mousedown', () => dog.dx = dog.speed);
+    btnRight.addEventListener('mouseup', () => dog.dx = 0);
+    btnRight.addEventListener('touchstart', (e) => { dog.dx = dog.speed; e.preventDefault(); });
+    btnRight.addEventListener('touchend', () => dog.dx = 0);
+
+    startBtn.addEventListener('click', startGame);
+
+    // Desenho Inicial
+    dog.y = canvas.height - 50;
+    drawDog();
+  </script>
+</body>
+</html>
